@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор мемов</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h3>Вставить фоновое изображение</h3>
+        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+        
+        <canvas id="memeCanvas" width="500" height="500"></canvas>
+        
+        <div class="div-buttons">
+            <button onclick="downloadMeme()">Скачать мем</button>
+        </div>
+        <div class="div-inputs">
+            <h3>Вставить текст</h3>
+            <div>
+                <label for="text">Ваш текст:</label>
+                <input type="textarea" id="text">
+            </div>
+            <div>
+                <label for="fontSize">Размер шрифта:</label>
+                <input type="number" id="fontSize" value="30">
+            </div>
+            <div>
+                <label for="fontColor">Цвет шрифта:</label>
+                <input type="color" id="fontColor">
+            </div>
+            <div>
+                <label for="backgroundColor">Цвет фона текста:</label>
+                <input type="color" id="backgroundColor" value="#FFFFFF">
+            </div>
+        </div>
+        <div class="div-buttons">
+            <button id="addText">Добавить текст</button>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

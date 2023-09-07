@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор калорий</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    
+    <div id="app">
+        <div class="inputs">
+            <H3>Добавить продукт</H3>
+            <div class="input-block">
+                <label for="product-name">Название продукта</label>
+                <input type="text" id="product-name">
+            </div>
+            <div class="input-block">
+                <label for="product-calories">Каллорийность, ккал/100г</label>
+                <input type="number"  id="product-calories">
+            </div>
+            <div class="input-block">
+                <label for="product-size">Количество, г</label>
+                <input type="number"  id="product-size">
+                <button onclick="addProduct()">Добавить продукт</button>
+            </div>
+
+            
+
+            <div class="input-block">
+                <label for="product-sizes">Цель на день, ккал</label>
+                <input type="number" id="daily-goal">
+                <button onclick="setDailyGoal()">Установить цель</button>
+            </div>
+            
+        </div>       
+        <div class="intent-calories">
+            <div id="intent-calories-sizes"></div>
+            <div id="intent-calories-alert"></div>
+            <div id="total-calories"></div>
+        </div>
+        <div class="chart">
+            <H3>График каллорий</H3>
+            <div id="chart">
+                <div class="bar-container">
+                    <!-- Ваши элементы .bar здесь -->
+                </div>
+            </div>
+            <div class="center">
+                Продукты
+            </div>
+        </div>
+       
+        <div class="product-list">
+            <H3>Продукты</H3>
+            <div class="center">
+                <button class="delete" id="clear">Очистить</button>
+            </div>
+            <div class="radio-block center">
+                <label for="filter-name">Фильтр по продуктам:</label>
+                <input type="radio" id="filter-name" name="filter-type" value="name">
+            </div>
+            <div class="radio-block center">
+                <label for="filter-calories">Фильтр по калориям:</label>
+                <input type="radio" id="filter-calories" name="filter-type" value="calories">
+            </div>
+            <ol id="product-list"></ol>
+        </div>
+        
+            
+        </ol>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
