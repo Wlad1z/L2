@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крестики-нолики</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="app">
+        <div>
+            X - Побед: <span id="x-win"></span>
+        </div>
+        <div class="board">
+            <div id="board">
+                <button onclick="makeMove(0)">-</button>
+                <button onclick="makeMove(1)">-</button>
+                <button onclick="makeMove(2)">-</button><br>
+                <button onclick="makeMove(3)">-</button>
+                <button onclick="makeMove(4)">-</button>
+                <button onclick="makeMove(5)">-</button><br>
+                <button onclick="makeMove(6)">-</button>
+                <button onclick="makeMove(7)">-</button>
+                <button onclick="makeMove(8)">-</button><br>
+            </div>
+            <div>
+                <button id="new-game" onclick="startNewGame()">Новая игра</button>
+            </div>
+        </div>
+        <div>
+            О - Побед: <span id="o-win"></span>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
