@@ -32,9 +32,7 @@
 }
  
 input {
-    position: absolute;
-    top: 200px;
-    left: 20px;
+    display: block;
     margin: 30px auto;
     font-size: 30px;
     padding: 10px;
@@ -42,9 +40,6 @@ input {
 
 .controls{
     padding: 20px;
-    position: absolute;
-    top: 200px;
-    right: 20px;
 }
 
 .modal {
@@ -86,5 +81,25 @@ input {
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-color: rgba(0, 0, 255, 0.471);
+    background-color: #8787FF;
+}
+
+.app {
+    display: flex;
+}
+
+.red {
+    background: rgba(255, 0, 0, 0.471);
+}
+.green {
+    background: rgba(0, 128, 0, 0.471);
+}
+.yellow {
+    background: rgba(255, 255, 0, 0.471)
+}
+.violet{
+    background: rgba(238, 130, 238, 0.471);
+}
+.dark{
+    background: rgba(0, 0, 0, 0.471);
 }
