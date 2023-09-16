@@ -12,7 +12,8 @@ body{
     background: white;
     border-radius: 4px;
     border: 2px solid rgb(180, 44, 44);
-    padding: 32px;
+    padding: 32px; 
+    position: relative;
 }
 .board{
     text-align: center;
@@ -27,18 +28,69 @@ body{
     font-size: 46px;
     margin: 4px;
 }
-.o-button{
-    color: rgb(180, 44, 44);
+.div-buttons{
+    text-align: center;
 }
-#new-game{
+.div-buttons button{
     background: rgb(180, 44, 44);
     color: white;
-    padding: 4px 8px;
+    padding: 8px 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    display: block;
+    margin: 4px auto;
 }
-#new-game:hover{
+.div-buttons button:hover{
     background: rgb(204, 32, 32);
+}
+h3{
+    margin-bottom: 0;
+}
+input[type="radio"] {
+    display: none;
+}
+label {
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
+label::before{
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-left: -10px;
+    margin-right: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    cursor: pointer;
+    background: rgba(246, 246, 250, 1);
+    border: 1px solid rgb(204, 32, 32);
+}
+input[type="radio"]:checked + label::before{
+    background: rgb(204, 32, 32);
+}
+.modal{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.modal-content {
+    padding-top: 25%;
+}
+.modal-content .div-buttons{
+    margin-top: 16px;
+}
+.hidden{
+    display: none;
+}
+.inline {
+    display: inline-block;
+    margin: 20px;
 }

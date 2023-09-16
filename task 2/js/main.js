@@ -155,5 +155,21 @@ canvas.addEventListener('mouseup', function() {
 // добавляем текстовый блок
 document.getElementById('addText').addEventListener('click', addTextBlock);
 
+function deleteTextBlock(index) {
+    if (index >= 0 && index < textBlocks.length) {
+        textBlocks.splice(index, 1); // Удаляем элемент из массива
+        generateMeme(); // Перерисовываем холст без удаленного текстового блока
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if ((event.key === 'Backspace' || event.key === 'Delete') && selectedTextBlock) {
+        const index = textBlocks.indexOf(selectedTextBlock); // Находим индекс выбранного текстового блока
+        deleteTextBlock(index); // Вызываем функцию удаления
+        selectedTextBlock = null; // Сбрасываем выбранный текстовый блок
+    }
+});
+
+
 
 generateMeme();

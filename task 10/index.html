@@ -12,6 +12,7 @@
             X - Побед: <span id="x-win"></span>
         </div>
         <div class="board">
+            <h4 id="mode">Игрок Х Игрок</h4>
             <div id="board">
                 <button onclick="makeMove(0)">-</button>
                 <button onclick="makeMove(1)">-</button>
@@ -23,12 +24,46 @@
                 <button onclick="makeMove(7)">-</button>
                 <button onclick="makeMove(8)">-</button><br>
             </div>
-            <div>
+            <div class="div-buttons">
                 <button id="new-game" onclick="startNewGame()">Новая игра</button>
+                <button id="new-game" onclick="showModal()">Новая игра с ботом </button>
+            </div>
+            <div>
+                <h3>Сейчас ходит - <span id="current"></span></h3>
             </div>
         </div>
         <div>
             О - Побед: <span id="o-win"></span>
+        </div>
+        <div class="modal hidden">
+            <div class="modal-content">
+                <div class="inline">
+                    <h3>Сложность</h3>
+                    <div>
+                        <input id="easy" name="level" type="radio">
+                        <label for="easy">Легко</label>
+                    </div>
+                    <div>
+                        <input id="hard" name="level" type="radio">
+                        <label for="hard">Сложно</label>
+                    </div>
+                </div>
+                <div class="inline">
+                    <div>
+                        <h3>Очередность</h3>
+                        <input id="first" name="step" type="radio">
+                        <label for="first">Первый</label>
+                    </div>
+                    <div>
+                        <input id="second" name="step" type="radio">
+                        <label for="second">Второй</label>
+                    </div>
+                </div>
+                
+                <div class="div-buttons">
+                    <button id="new-game" onclick="startNewGameBots()">Начать игру</button>
+                </div>
+            </div>      
         </div>
     </div>
     
