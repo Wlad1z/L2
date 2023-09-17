@@ -96,8 +96,9 @@ input[type="radio"]:checked + label::before{
 }
 @media only screen and (max-device-width: 600px){
     #board button {
-    height: 24px;
-    width: 24px;
-    margin: 4px;
-}
+        height: 24px;
+        width: 24px;
+        margin: 4px;
+        text-align: center;
+    }
 }
