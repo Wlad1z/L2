@@ -56,7 +56,6 @@ function currentCheckInput() {
             placeholder.innerHTML = `Введите число от 1 до ${limit}`;
         }
         } else {
-        input.value = 1;
     }
     input.style.border = "1px solid #ccc"
 }

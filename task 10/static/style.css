@@ -98,8 +98,6 @@ input[type="radio"]:checked + label::before{
     #board button {
     height: 24px;
     width: 24px;
-    line-height: auto;
-    font-size: auto;
     margin: 4px;
 }
 }
