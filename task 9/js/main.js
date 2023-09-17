@@ -1,3 +1,4 @@
+// определяем DOM-элементы
 const productNameInput = document.getElementById('product-name');
 const productCaloriesInput = document.getElementById('product-calories');
 const productSizeInput = document.getElementById('product-size');
@@ -9,9 +10,9 @@ const productList = document.getElementById('product-list');
 const chart = document.getElementById('chart');
 
 
+let totalCalories = 0; // переменная для дневной нормы
 
-let totalCalories = 0;
-
+// загружаем данные из локального хранилища
 function loadProducts() {
     return JSON.parse(localStorage.getItem('products')) || [];
 }
@@ -24,11 +25,10 @@ let products = loadProducts();
 let dailyGoal = loadDailyGoal();
 
 function saveProduct(product) {
-    
     products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
 }
-
+//функция добавления продукта
 function addProduct() {
     const name = productNameInput.value;
     const calories = parseInt(productCaloriesInput.value);
@@ -40,20 +40,18 @@ function addProduct() {
 }
 
 
-
+//функция изменения дневной нормы
 function setDailyGoal() {
     let newDailyGoal = parseInt(dailyGoalInput.value);
     localStorage.setItem('dailyGoal', newDailyGoal);
     addIntentCalloriesSizes(newDailyGoal);
 }
-
+//отрисовка дневной нормы
 function addIntentCalloriesSizes(dailyGoal) {
     intentCaloriesSizes.innerHTML = `Ваша дневная цель ${dailyGoal} ккал`;
     checkGoal();
 }
-
-
-
+//проверка дневной нормы
 function checkGoal() {
     let dailyGoal = loadDailyGoal()
     if (totalCalories > dailyGoal) {
@@ -62,7 +60,7 @@ function checkGoal() {
         intentCaloriesAlert.innerHTML = "";
     }
 }
-
+//отрисовка продуктов
 function renderProducts() {
     
     productList.innerHTML = '';
@@ -95,13 +93,9 @@ function renderProducts() {
         }
         hiddenDiv.classList.add('hidden', 'placeholder');
         div.appendChild(hiddenDiv);
-    
-        // Добавить обработчик события для наведения мыши
         div.addEventListener('mouseenter', () => {
             hiddenDiv.classList.remove('hidden');
         });
-    
-        // Добавить обработчик события для убирания мыши
         div.addEventListener('mouseleave', () => {
             hiddenDiv.classList.add('hidden');
         });
@@ -112,27 +106,27 @@ function renderProducts() {
 
     checkGoal();
 }
-
+//сортировка по продуктам
 document.getElementById('filter-name').addEventListener('change', (event) => {
     if (event.target.checked) {
         products.sort((a, b) => a.name.localeCompare(b.name));
         renderProducts();
     }
 });
-
+//сортировка по калориям
 document.getElementById('filter-calories').addEventListener('change', (event)=>{
     if (event.target.checked){
         products.sort((a, b) => b.getCalories - a.getCalories);
         renderProducts();
     }
 })
-
+//удаления продукта
 function deleteProduct(id) {
     products = products.filter(product => product.id !== id);
     localStorage.setItem('products', JSON.stringify(products));
     renderProducts();
 }
-
+//очистка всего массива продуктов
 document.getElementById('clear').addEventListener('click', ()=>{
     products = [];
     localStorage.setItem('products', JSON.stringify(products));

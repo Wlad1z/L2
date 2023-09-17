@@ -1,3 +1,4 @@
+// определяем DOM-элементы
 const input = document.getElementById('input'),
     range = document.getElementById('range'),
     placeholder = document.getElementById('placeholder'),
@@ -5,12 +6,13 @@ const input = document.getElementById('input'),
     restart = document.getElementById('restart'),
     countTrialSpan = document.getElementById('count-trial'),
     limitSpan = document.getElementById('limit');
+// первое случайное число при загрузке страницы
 let specifiedNumber = Math.floor(range.value * Math.random()),
     count = 0,
     countTrial = 0,
     limit = 100;
 
-
+//отрисовка подсказки подсказки
 function placeholderNumber () {
     if(count >= 3){
         if (specifiedNumber%2 == 0){
@@ -22,7 +24,7 @@ function placeholderNumber () {
         }
     }
 }
-
+//функция для опредения числа
 check.addEventListener('click', ()=>{
     if(!input.value){
         placeholder.innerHTML = "Введите число.";
@@ -44,7 +46,7 @@ check.addEventListener('click', ()=>{
     countTrialSpan.innerHTML = countTrial;
 
 })
-
+//проверка на валидность числа
 function currentCheckInput() {
     const validValue = input.value.match(/^\d+$/);
     if (validValue) {
@@ -58,7 +60,7 @@ function currentCheckInput() {
     }
     input.style.border = "1px solid #ccc"
 }
-
+//проверка на валидность лимита
 function currentCheckInputRange() {
     const validValue = range.value.match(/^\d+$/);
     if (validValue) {
@@ -74,7 +76,7 @@ function currentCheckInputRange() {
 
 input.addEventListener("input", currentCheckInput);
 range.addEventListener("input", currentCheckInputRange);
-
+//функция рестарт
 restart.addEventListener('click', ()=>{
     count = 0;
     countTrial = 0;

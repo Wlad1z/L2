@@ -2,7 +2,7 @@ let overlay = document.querySelector('.overlay');
 let modal = document.querySelector('.modal');
 let buttons = document.querySelectorAll('.button');
 console.log(buttons)
-
+//выбор сложности
 document.querySelector('.easy').addEventListener('click', ()=>{
     startGame (500);
     modal.style.display = 'none';
@@ -24,7 +24,7 @@ document.querySelector('.hard').addEventListener('click', ()=>{
 function startGame (speed){
     let tetris = document.createElement('div');
     tetris.classList.add('tetris');
-
+    //создаём поле
     for (let i = 0; i <181; i++){
         let excel = document.createElement('div');
         excel.classList.add('excel');
@@ -36,7 +36,7 @@ function startGame (speed){
 
     let excel = document.getElementsByClassName('excel');
     let i = 0;
-
+    //записываем его координаты
     for (let y = 18; y > 0; y--){
         for (let x =1; x < 11; x++ ){
             excel[i].setAttribute('posX', x);
@@ -44,8 +44,9 @@ function startGame (speed){
             i++;
         }
     }
-
+    //координаты появления фигур
     let x = 5, y = 15;
+    //массив фигур
     let mainArr = [
         //палка
         [
@@ -286,28 +287,29 @@ function startGame (speed){
             ]
         ]
     ]
-
+    //параметры фигур
     let currentFigure = 0;
     let figureBody = 0;
     let rotate = 1;
     let color = ['red', 'green', 'yellow', 'violet', 'dark'];
     let background;
-
+    //функция создания
     function create(){
+        //генерация фигуры
         function getRandom(){
             return Math.round(Math.random()*(mainArr.length-1))
         }
         rotate = 1;
         currentFigure =  getRandom();
         background = color[Math.round(Math.random()*(color.length-1))];
-
+        //отрисовываем фигуру
         figureBody = [
             document.querySelector(`[posX = "${x}"][posY = "${y}"]`), 
             document.querySelector(`[posX = "${x + mainArr[currentFigure][0][0]}"][posY = "${y + mainArr[currentFigure][0][1]}"]`),
             document.querySelector(`[posX = "${x + mainArr[currentFigure][1][0]}"][posY = "${y + mainArr[currentFigure][1][1]}"]`),
             document.querySelector(`[posX = "${x + mainArr[currentFigure][2][0]}"][posY = "${y + mainArr[currentFigure][2][1]}"]`)
         ]
-
+        
         for (let i = 0; i <figureBody.length; i++){
             figureBody[i].classList.add(background);
         }
@@ -317,8 +319,9 @@ function startGame (speed){
     let score = 0;
     let input = document.getElementsByTagName('input')[0];
 
-
+    //функция падения
     function move(){
+        //флаг падения
         let moveFlag = true;
         let coordinates = [
             [figureBody[0].getAttribute('posX'), figureBody[0].getAttribute('posY')],
@@ -326,13 +329,14 @@ function startGame (speed){
             [figureBody[2].getAttribute('posX'), figureBody[2].getAttribute('posY')],
             [figureBody[3].getAttribute('posX'), figureBody[3].getAttribute('posY')],
         ];
+        //смещаем координаты на 1 вниз
         for (let i = 0; i <coordinates.length; i++){
             if (coordinates[i][1] == 1 || document.querySelector(`[posX = "${parseInt(coordinates[i][0])}"][posY = "${parseInt(coordinates[i][1])-1}"]`).classList.contains('set')) {
                 moveFlag = false;
                 break;
             }
         }
-
+        //отрисовка фигуры
         if (moveFlag){
             for (let i = 0; i < figureBody.length; i++){
                 figureBody[i].classList.remove(background);
@@ -347,12 +351,14 @@ function startGame (speed){
                 figureBody[i].classList.add(background);
             }
         } else {
+            //приклеиваем фигуру к нижней части
             for (let i = 0; i <figureBody.length; i++){
                 figureBody[i].classList.remove(background);
                 figureBody[i].classList.add('set');
             }
             for (let i = 1; i < 15; i++){
                 let count = 0;
+                //удаляем собраную полосу
                 for (let k = 1; k < 11; k++){
                     if(document.querySelector(`[posX = "${k}"][posY = "${i}"]`).classList.contains('set')){
                         count++;
@@ -379,6 +385,7 @@ function startGame (speed){
                     }
                 }
             }
+            //проверка на завершение игры
             for (let n = 1; n < 11; n++){
                 if (document.querySelector(`[posX = "${n}"][posY = "${15}"]`).classList.contains('set')){
                     clearInterval(interval);
@@ -389,19 +396,19 @@ function startGame (speed){
             create();
         }
     }
-
+    //вызов функции в зависимости от сложности
     let interval = setInterval (()=>{
         move();
     }, speed);
 
     let flag = true;
-
+    //функции для кнопок
     window.addEventListener('keydown', function(e){
         let coordinates1 = [figureBody[0].getAttribute('posX'),figureBody[0].getAttribute('posY')];
         let coordinates2 = [figureBody[1].getAttribute('posX'),figureBody[1].getAttribute('posY')];
         let coordinates3 = [figureBody[2].getAttribute('posX'),figureBody[2].getAttribute('posY')];
         let coordinates4 = [figureBody[3].getAttribute('posX'),figureBody[3].getAttribute('posY')];
-
+        //функция перемещения
         function getNewState (a){
             flag = true;
 
@@ -438,6 +445,7 @@ function startGame (speed){
         } else if (e.keyCode == 40) {
             move();
         } else if (e.keyCode == 38) {
+            //функция поворота
             flag = true;
 
             let figureNew = [

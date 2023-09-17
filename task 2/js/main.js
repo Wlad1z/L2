@@ -3,7 +3,7 @@ let ctx = canvas.getContext('2d');
 let textBlocks = []; // массив для текстовых блоков
 let selectedTextBlock = null; // текущий текстовый блок
 let drag = false; // флаг для перетаскивания текстового блока
-let offsetX = 0; // Смещение по х при перетаскивании
+let offsetX = 0; // смещение по х при перетаскивании
 let offsetY = 0; // смещение по у при перетаскивании
 let backgroundImg = new Image();
 
@@ -157,16 +157,16 @@ document.getElementById('addText').addEventListener('click', addTextBlock);
 
 function deleteTextBlock(index) {
     if (index >= 0 && index < textBlocks.length) {
-        textBlocks.splice(index, 1); // Удаляем элемент из массива
-        generateMeme(); // Перерисовываем холст без удаленного текстового блока
+        textBlocks.splice(index, 1); // удаляем элемент из массива
+        generateMeme(); // перерисовываем холст 
     }
 }
 
 window.addEventListener('keydown', function(event) {
     if ((event.key === 'Backspace' || event.key === 'Delete') && selectedTextBlock) {
-        const index = textBlocks.indexOf(selectedTextBlock); // Находим индекс выбранного текстового блока
-        deleteTextBlock(index); // Вызываем функцию удаления
-        selectedTextBlock = null; // Сбрасываем выбранный текстовый блок
+        const index = textBlocks.indexOf(selectedTextBlock); // находим индекс выбранного текстового блока
+        deleteTextBlock(index); // вызываем функцию удаления
+        selectedTextBlock = null; // сбрасываем выбранный текстовый блок
     }
 });
 

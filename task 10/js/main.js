@@ -3,7 +3,7 @@ let currentPlayer = "X";
 let currentSpan = document.getElementById('current');
 let gameWitchBot = false;
 let mode = document.getElementById('mode');
-
+//массив выигрышных комбинаций
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -14,19 +14,20 @@ const winningCombos = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+//загружаем историю игры
 let wins = localStorage.getItem("ticTacwins");
 if (wins){
     wins = JSON.parse(wins)
 } else{
     wins = [0, 0]
 }
-
+//отрисовываем историю игры
 function setWins(){
     document.getElementById('x-win').innerHTML = wins[0];
     document.getElementById('o-win').innerHTML = wins[1];
 }
 setWins()
-
+//функция хода
 function makeMove(index) {
     if (board[index] === "-") {
         board[index] = currentPlayer;
@@ -37,30 +38,30 @@ function makeMove(index) {
             button.style.color = "#BE2220";
         }
 
-        let gameEnded = false; // Флаг для проверки, закончилась ли игра
+        let gameEnded = false; // флаг для проверки, закончилась ли игра
 
         if (checkWin(currentPlayer)) {
             alert(currentPlayer + " победил!");
             currentPlayer === "X" ? (wins[0] = wins[0] + 1) : (wins[1] = wins[1] + 1);
             setWins();
-            gameEnded = true; // Устанавливаем флаг, что игра закончилась
+            gameEnded = true; // устанавливаем флаг, что игра закончилась
         } else if (board.indexOf("-") === -1) {
             alert("Ничья!");
-            gameEnded = true; // Устанавливаем флаг, что игра закончилась
+            gameEnded = true; // устанавливаем флаг, что игра закончилась
         }
 
-        // Сохраняем текущее состояние игры в localStorage после каждого хода
+        // сохраняем текущее состояние игры в localStorage после каждого хода
         localStorage.setItem("ticTacToeBoard", JSON.stringify(board));
         localStorage.setItem("ticTacwins", JSON.stringify(wins));
         localStorage.setItem("ticTacToeCurrentPlayer", currentPlayer);
 
-        // Если игра закончилась, сбрасываем игру
+        // если игра закончилась, сбрасываем игру
         if (gameEnded) {
             startNewGame();
             return;
         }
 
-        // Переключаем текущего игрока только если игра не закончилась
+        // переключаем текущего игрока только если игра не закончилась
         currentPlayer = currentPlayer === "X" ? "O" : "X";
         currentSpan.innerHTML = currentPlayer;
         if (gameWitchBot && !gameEnded) {
@@ -68,7 +69,7 @@ function makeMove(index) {
         }
     }
 }
-
+//проверка на победу
 function checkWin(player) {
     for (let combo of winningCombos) {
         if (board[combo[0]] === player && board[combo[1]] === player && board[combo[2]] === player) {
@@ -77,7 +78,7 @@ function checkWin(player) {
     }
     return false;
 }
-
+//начало новой игры
 function startNewGame() {
     board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
     gameWitchBot = false;
@@ -89,17 +90,16 @@ function startNewGame() {
     localStorage.setItem("ticTacToeBoard", JSON.stringify(board));
     currentPlayer = "X";
     currentSpan.innerHTML = currentPlayer;
-    // Сбрасываем цвет для всех кнопок
     document.querySelectorAll("#board button").forEach(button => {
         button.innerText = "-";
-        button.style.color = "black"; // Возвращаем черный цвет
+        button.style.color = "black"; 
     });
 }
 
 const savedBoard = localStorage.getItem("ticTacToeBoard");
 const savedCurrentPlayer = localStorage.getItem("ticTacToeCurrentPlayer");
 
-// Если есть сохраненное состояние, восстанавливаем его
+// если есть сохраненное состояние, восстанавливаем его
 if (savedBoard && savedCurrentPlayer) {
     board = JSON.parse(savedBoard);
     if (savedCurrentPlayer === "X"){
@@ -110,12 +110,11 @@ if (savedBoard && savedCurrentPlayer) {
     }
     currentSpan.innerHTML = currentPlayer;
 } else {
-    // Иначе сбрасываем игру в начальное состояние
     board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
     currentPlayer = "X";
 }
 
-// Обновляем отображение кнопок
+// обновляем отображение кнопок
 document.querySelectorAll("#board button").forEach((button, index) => {
     button.innerText = board[index];
     if (board[index] === "O") {
@@ -129,14 +128,12 @@ function showModal(){
     document.querySelector('.modal').classList.remove('hidden');
 }
 
-let botDifficulty = "easy"; // По умолчанию выбран простой уровень
-let step = "first"; // По умолчанию человек ходит первый
+let botDifficulty = "easy"; // по умолчанию выбран простой уровень
+let step = "first"; // по умолчанию человек ходит первый
 
-// Элементы интерфейса для выбора сложности
 const easy = document.getElementById("easy");
 const hard = document.getElementById("hard");
 
-// Обработчики событий для радиокнопок выбора сложности
 easy.addEventListener("change", () => {
     botDifficulty = "easy";
 });
@@ -145,11 +142,9 @@ hard.addEventListener("change", () => {
     botDifficulty = "hard";
 });
 
-// Элементы интерфейса для выбора хода
 const first = document.getElementById("first");
 const second = document.getElementById("second");
 
-// Обработчики событий для радиокнопок выбора сложности
 first.addEventListener("change", () => {
     step = "first";
 });
@@ -157,7 +152,7 @@ first.addEventListener("change", () => {
 second.addEventListener("change", () => {
     step = "second";
 });
-
+//функция хода бота
 function makeBotMove() {
     if (gameWitchBot) {
         let availableMoves = [];
@@ -170,10 +165,10 @@ function makeBotMove() {
         let botMove;
 
         if (botDifficulty === "easy") {
-            // Простой уровень: выбираем случайный ход из доступных
+            // простой уровень: выбираем случайный ход из доступных
             botMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
         } else {
-            // Сложный уровень: использовать функцию findBestMove
+            // сложный уровень: использовать функцию findBestMove
             botMove = hardMoveBot();
             console.log(botMove);
             if (botMove == -1){
@@ -201,7 +196,7 @@ function makeBotMove() {
             gameEnded = true;
         }
 
-        // Сохраняем текущее состояние игры в localStorage
+        // сохраняем текущее состояние игры в localStorage
         localStorage.setItem("ticTacToeBoard", JSON.stringify(board));
         localStorage.setItem("ticTacToeCurrentPlayer", currentPlayer);
 
@@ -215,47 +210,40 @@ function makeBotMove() {
     currentSpan.innerHTML = "X" ;
 }
 function hardMoveBot() {
+    //определяем выигрышный ход для бота
     for (let i = 0; i < winningCombos.length; i++) {
         const combo = winningCombos[i];
         const cell1 = board[combo[0]];
         const cell2 = board[combo[1]];
         const cell3 = board[combo[2]];
 
-        // Подсчитываем количество X и O в текущей комбинации
         const countX = [cell1, cell2, cell3].filter(cell => cell === 'X').length;
         const countO = [cell1, cell2, cell3].filter(cell => cell === 'O').length;
 
-        // Проверяем, есть ли две O и одна пустая клетка
-        if (countO === 2 && countX === 0) {
-            // Находим индекс пустой клетки в текущей комбинации
+        if (countO === 2 && countX === 0) {    
             const emptyCellIndex = [cell1, cell2, cell3].indexOf('-');
-            
-            // Возвращаем индекс пустой клетки
             return combo[emptyCellIndex];
         }
     }
+    //определяем выигрышный ход для игрока
     for (let i = 0; i < winningCombos.length; i++) {
         const combo = winningCombos[i];
         const cell1 = board[combo[0]];
         const cell2 = board[combo[1]];
         const cell3 = board[combo[2]];
 
-        // Подсчитываем количество X и O в текущей комбинации
         const countX = [cell1, cell2, cell3].filter(cell => cell === 'X').length;
         const countO = [cell1, cell2, cell3].filter(cell => cell === 'O').length;
 
-        // Проверяем, есть ли две X и одна пустая клетка
+
         if (countX === 2 && countO === 0) {
-            // Находим индекс пустой клетки в текущей комбинации
             const emptyCellIndex = [cell1, cell2, cell3].indexOf('-');
-            
-            // Возвращаем индекс пустой клетки
             return combo[emptyCellIndex];
         }
     }
     
     
-    return -1; // Если не нашли подходящую комбинацию, возвращаем -1
+    return -1; // если не нашли подходящую комбинацию, возвращаем -1 для рандомного хода
 }
 
 function startNewGameBots() {
@@ -269,24 +257,18 @@ function startNewGameBots() {
     localStorage.setItem("ticTacToeBoard", JSON.stringify(board));
     document.querySelectorAll("#board button").forEach(button => {
         button.innerText = "-";
-        button.style.color = "black"; // Возвращаем черный цвет
+        button.style.color = "black"; // возвращаем черный цвет
     });
     
-    // Определяем, кто будет ходить первым, исходя из выбора пользователя
+    // определяем, кто будет ходить первым, исходя из выбора пользователя
     currentPlayer = step === "first" ? "X" : "O";
-
-    // Опционально, можно также обновить отображение текущего игрока
-
     const selectedLevel = document.querySelector('input[name="level"]:checked');
     if (selectedLevel) {
         botDifficulty = selectedLevel.id;
-    } else {
-        // Если не выбрана, по умолчанию используем "easy"
-        botDifficulty = "easy";
     }
     document.querySelector('.modal').classList.add('hidden');
 
-    // Если первым ходит бот, вызываем функцию makeBotMove()
+    // если первым ходит бот, вызываем функцию makeBotMove()
     if (currentPlayer === "O") {
         makeBotMove();
     }
