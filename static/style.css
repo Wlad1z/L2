@@ -1,0 +1,18 @@
+a{
+    display: block;
+    background-color: bisque;
+    width: 30%;
+    margin: 20px auto;
+    padding: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 300ms;
+}
+a:hover{
+    border-radius: 24px;
+}
+*{
+    text-align: center;
+    font-family: sans-serif;
+}
