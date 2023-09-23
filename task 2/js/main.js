@@ -65,13 +65,6 @@ function generateMeme() {
     }
 }
 
-document.getElementById('fontColor').addEventListener('input', function() {
-    let newColor = this.value;
-    if (selectedTextBlock) {
-        selectedTextBlock.fontColor = newColor;
-        generateMeme(); // перерисовываем текст с новым цветом
-    }
-});
 
 function downloadMeme() {
     let link = document.createElement('a');

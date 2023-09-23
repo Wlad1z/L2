@@ -76,30 +76,28 @@ function renderProducts() {
         productList.appendChild(li);
         if (product.getCalories> maxSize){
             maxSize = product.getCalories;
+            const height = 100 / (maxSize / product.getCalories);
+            const div = document.createElement('div');
+        
+            div.style.height = height + "%";
+            div.classList.add('bar');
+            div.innerHTML = product.getCalories + " ккал.";
+            chart.appendChild(div);
+            const hiddenDiv = document.createElement('div');
+            hiddenDiv.innerHTML = product.name + "<br>"+ product.getCalories + " ккал.";
+            if (count > 15){
+                hiddenDiv.style.right = 0;
+            }
+            hiddenDiv.classList.add('hidden', 'placeholder');
+            div.appendChild(hiddenDiv);
+            div.addEventListener('mouseenter', () => {
+                hiddenDiv.classList.remove('hidden');
+            });
+            div.addEventListener('mouseleave', () => {
+                hiddenDiv.classList.add('hidden');
+            });
+            count ++;
         }
-    });
-    products.forEach(product => {
-        const height = 100 / (maxSize / product.getCalories);
-        const div = document.createElement('div');
-    
-        div.style.height = height + "%";
-        div.classList.add('bar');
-        div.innerHTML = product.getCalories + " ккал.";
-        chart.appendChild(div);
-        const hiddenDiv = document.createElement('div');
-        hiddenDiv.innerHTML = product.name + "<br>"+ product.getCalories + " ккал.";
-        if (count > 15){
-            hiddenDiv.style.right = 0;
-        }
-        hiddenDiv.classList.add('hidden', 'placeholder');
-        div.appendChild(hiddenDiv);
-        div.addEventListener('mouseenter', () => {
-            hiddenDiv.classList.remove('hidden');
-        });
-        div.addEventListener('mouseleave', () => {
-            hiddenDiv.classList.add('hidden');
-        });
-        count ++;
     });
 
     totalCaloriesDiv.textContent = `Суммарно: ${totalCalories} калорий`;
